@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react";
 import Loader from "./Components/Loader/Loader";
-import Scene from "./Components/Scene/Scene";
+import WelcomeUserDialog from "./Components/Dialogs/WelcomeUserDialog/WelcomeUserDialog";
+import { useUserContext } from "./Context/UserContext";
+import Layout from "./Pages/Layout";
 
 export default function App() {
-    const [state, setState] = useState(false);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setState(true);
-        }, 2000);
-    }, []);
-
+    const user = useUserContext();
     return (
         <div className="App">
-            {state ? <Scene /> : null}
-            <Loader isFinished={state} />
+            {user.hasUser ? <Layout /> : null}
+
+            <Loader isFinished={user.isFetched} />
+
+            <WelcomeUserDialog
+                open={user.isFetched && !user.hasUser}
+                onSave={(username) => {
+                    user.setUsername(username);
+                }}
+            />
         </div>
     );
 }

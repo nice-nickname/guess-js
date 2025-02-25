@@ -8,5 +8,5 @@ export default function TelegramLogoIcon({ width, height }: TelegramLogoIconProp
     return <img
         width={width}
         height={height}
-        src="https://img.icons8.com/?size=100&id=lUktdBVdL4Kb&format=png&color=000000" />
+        src="https://img.icons8.com/?size=100&id=lUktdBVdL4Kb&format=png&color=ffffff" />
 }

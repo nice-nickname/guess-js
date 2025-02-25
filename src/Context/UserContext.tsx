@@ -1,62 +1,59 @@
-import React, { PropsWithChildren, useCallback, useEffect, useState } from "react";
-import Cookie from "../Utils/Cookie";
-
-const Context = React.createContext<UserContext>({
-    userFetched: false,
-    username: '',
-    setUser: () => {},
-    updateCookie: () => {}
-})
+import React, {
+    PropsWithChildren,
+    useEffect,
+    useMemo,
+    useState,
+} from "react";
 
 export type UserState = {
-    userFetched: boolean
-    username: string
-}
+    isFetched: boolean;
+    username: string;
+    level: string;
+};
 
 export type UserContext = UserState & {
-    setUser: (user: UserState) => void
-    updateCookie: (user: UserState) => void
-}
+    hasUser: boolean;
+    setUsername: (username: string) => void;
+    setLevel: (level: string) => void
+};
+
+// @ts-expect-error mute
+const Context = React.createContext<UserContext>({});
 
 export const useUserContext = () => React.useContext(Context);
 
-export function AppContextProvider(props: PropsWithChildren) {
-
-    const [user, setUser] = useState<UserState>({
-         username: '',
-         userFetched: false
-    })
+export const UserContextProvider = (props: PropsWithChildren) => {
+    const [username, setUsername] = useState("")
+    const [isFetched, setIsFetched] = useState(false)
+    const [level, setLevel] = useState("")
 
     useEffect(() => {
-        let username = ''
+        setTimeout(() => setIsFetched(true), 3000);
+    }, []);
 
-        const cookieState = Cookie.get('_state')
-        if (cookieState) {
-            const state = JSON.parse(cookieState)
+    const hasUser = useMemo(() => {
+        return username != null && username.length > 0;
+    }, [username]);
 
-            if (state && state['username']) {
-                username = state['username']
-            }
+    const user = useMemo<UserContext>(() => {
+        return {
+            // State props
+            username,
+            isFetched,
+            level,
+
+            // Computed props
+            hasUser,
+
+            // Methods
+            setUsername,
+            setLevel
         }
-
-        setUser({
-            userFetched: true,
-            username
-        })
-
-    }, [])
-
-    const updateCookie = useCallback((state: UserState) => {
-        Cookie.set('_state', JSON.stringify(state))
-    }, [])
+    }, [username, isFetched, level, hasUser])
 
     return (
-        <Context.Provider value={{
-            ...user,
-            setUser: setUser,
-            updateCookie: updateCookie
-        }}>
+        <Context.Provider value={user}>
             {props.children}
         </Context.Provider>
-    )
+    );
 }

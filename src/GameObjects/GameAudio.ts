@@ -1,31 +1,52 @@
 
-const url = ''
-
 class GameAudio {
 
-    private audio: HTMLAudioElement
+    private readonly ambientAudio: HTMLAudioElement
+    private readonly hitAudio: HTMLAudioElement
+
+    private _volume: number = 0.5
 
     constructor() {
-        this.audio = new Audio(url)
-        this.audio.volume = 0.5
+        const basePath = document.location.origin
+
+        document.addEventListener('click', (ev: MouseEvent) => {
+            if ((ev.target as Element).closest('button, a') !== null) {
+                this.playHit()
+            }
+        })
+
+        this.ambientAudio = new Audio(basePath + '/ambient.mp3')
+        this.hitAudio = new Audio(basePath + '/hit.mp3')
+
+        this.ambientAudio.volume = this.volume
+        this.hitAudio.volume = this.volume
     }
 
     play() {
-        this.audio.play()
+        this.ambientAudio.play()
+    }
+
+    playHit() {
+        this.hitAudio.play()
     }
 
     pause() {
-        this.audio.pause()
+        this.ambientAudio.pause()
     }
 
-    setVolume(value: number) {
-        if (value < 0 || value > 1) {
-            return
-        }
+    set volume(value: number) {
+        this._volume = value
 
-        this.audio.volume = value
+        this.hitAudio.volume = this._volume;
+        this.ambientAudio.volume = this._volume;
+    }
+
+    get volume() {
+        return this._volume;
     }
 
 }
 
-export default new GameAudio()
+const gameAuio = new GameAudio()
+
+export default gameAuio
