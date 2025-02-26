@@ -8,6 +8,7 @@ import GameAudio from "./GameObjects/GameAudio.ts";
 
 import "@radix-ui/themes/styles.css";
 import "./index.css";
+import { GameContextProvider } from "./Context/GameContext.tsx";
 
 GameAudio.play();
 
@@ -15,9 +16,11 @@ createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <BrowserRouter>
             <Theme appearance="dark" radius="large">
-                <UserContextProvider>
-                    <App />
-                </UserContextProvider>
+                <GameContextProvider>
+                    <UserContextProvider>
+                        <App />
+                    </UserContextProvider>
+                </GameContextProvider>
             </Theme>
         </BrowserRouter>
     </StrictMode>

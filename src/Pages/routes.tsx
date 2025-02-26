@@ -1,13 +1,14 @@
-import { CalendarIcon, PlayIcon, RocketIcon } from "@radix-ui/react-icons";
+import { CalendarIcon, HomeIcon, RocketIcon } from "@radix-ui/react-icons";
 import DailyPage from "./Daily/DailyPage";
 import IndexPage from "./Index/IndexPage";
 import StatisticsPage from "./Statistics/StatisticsPage";
 
 export const routes = [
     {
+        index: true,
         to: "/",
         title: "Главная",
-        icon: <PlayIcon />,
+        icon: <HomeIcon />,
         page: <IndexPage />,
     },
     {

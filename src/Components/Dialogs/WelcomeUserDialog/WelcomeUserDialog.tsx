@@ -20,7 +20,7 @@ export type UserEditDialogProps = {
 
 export default function WelcomeUserDialog({ onSave, open }: UserEditDialogProps) {
     const [username, setUsername] = useState("");
-    const debouncedUsername = useDebounce(username, 500);
+    const debouncedUsername = useDebounce(username, 300);
 
     return (
         <Dialog.Root open={open}>

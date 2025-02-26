@@ -13,6 +13,7 @@ export default function Layout() {
                 <Routes>
                     {routes.map((route) => (
                         <Route
+                            index={route.index}
                             path={route.to}
                             element={route.page}
                             key={route.to}

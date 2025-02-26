@@ -1,7 +1,7 @@
 import { Badge, DataList, Heading } from "@radix-ui/themes";
 import { useUserContext } from "../../Context/UserContext";
 import { useMemo } from "react";
-import { levels } from "../../GameObjects/levels";
+import { levels } from "../../GameObjects/GameLevels";
 
 export default function StatisticsPage() {
     const user = useUserContext()

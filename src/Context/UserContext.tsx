@@ -25,10 +25,10 @@ export const useUserContext = () => React.useContext(Context);
 export const UserContextProvider = (props: PropsWithChildren) => {
     const [username, setUsername] = useState("")
     const [isFetched, setIsFetched] = useState(false)
-    const [level, setLevel] = useState("")
+    const [level, setLevel] = useState("0")
 
     useEffect(() => {
-        setTimeout(() => setIsFetched(true), 3000);
+        setTimeout(() => setIsFetched(true), 200);
     }, []);
 
     const hasUser = useMemo(() => {

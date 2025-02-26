@@ -1,19 +1,29 @@
-import { Box, Flex, Heading, Text } from "@radix-ui/themes";
-import { levels } from "../../GameObjects/levels";
+import { Box, Button, Flex, Heading } from "@radix-ui/themes";
+import { levels } from "../../GameObjects/GameLevels";
 import { NavLink } from "react-router";
+import { useUserContext } from "../../Context/UserContext";
 
 export default function IndexPage() {
+    const user = useUserContext();
+
     return (
         <>
-            <Heading mb="5">Уровни</Heading>
+            <Heading mb="5">Главная</Heading>
 
             <Flex direction="column" gap="3">
                 {levels.levels.map((level) => (
-                    <Box>
-                        <NavLink to={"/play/" + level.id}>
-                            <Text>{level.id}</Text>
-                        </NavLink>
-                    </Box>
+                    <NavLink key={level.id} to={"/play/" + level.id}>
+                        <Box asChild px="5">
+                            <Button
+                                variant="ghost"
+                                size="3"
+                                radius="full"
+                                disabled={(+user.level + 1) < +level.id}
+                            >
+                                {level.id} – {level.title}
+                            </Button>
+                        </Box>
+                    </NavLink>
                 ))}
             </Flex>
         </>
