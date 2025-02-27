@@ -1,4 +1,3 @@
-import { Box } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 
 const MS_IN_MINUTES = 60_000;
@@ -27,10 +26,10 @@ export default function Countdown() {
     }, []);
 
     return (
-        <Box>
+        <>
             {time.toLocaleTimeString([], {
                 hour12: false,
             })}
-        </Box>
+        </>
     );
 }

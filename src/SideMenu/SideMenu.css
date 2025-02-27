@@ -2,6 +2,9 @@
 .Nav {
     width: 300px;
 
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    
     box-shadow: var(--shadow-2);
 }
 

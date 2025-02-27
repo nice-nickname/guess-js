@@ -13,34 +13,34 @@ export default function BooleanAnswer(props: BooleanAnswerProps) {
         onWrong,
     } = props
 
-    const onClick = useCallback((event: React.MouseEvent) => {
+    const handleClick = useCallback((event: React.MouseEvent) => {
         const target = event.target as HTMLDivElement
 
-        const option = target.hasAttribute('data-value')
+        const optionEl = target.hasAttribute('data-answer')
             ? target
-            : target.closest('data-value')
+            : target.closest('data-answer')
 
-        if (option) {
-            const actual = option.getAttribute('data-value') === 'true'
+        if (optionEl) {
+            const value = optionEl.getAttribute('data-answer') === 'true'
 
-            if (actual === expected) {
+            if (value === expected) {
                 onCorrect()
             } else {
-                onWrong()
+                onWrong(optionEl)
             }
         }
     }, [expected, onCorrect, onWrong])
 
     return (
-        <Flex onClick={onClick} gap="3" flexGrow="1">
+        <Flex onClick={handleClick} gap="3">
             <Box flexGrow="1" asChild>
-                <Button data-value="true" variant="soft">
+                <Button data-answer="true">
                     True
                 </Button>
             </Box>
 
             <Box flexGrow="1" asChild>
-                <Button data-value="false" variant="soft">
+                <Button data-answer="false">
                     False
                 </Button>
             </Box>

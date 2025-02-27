@@ -1,11 +1,21 @@
+import { Flex, Heading } from "@radix-ui/themes";
 import Countdown from "../../Components/Countdown/Countdown";
+import Level from "../../Components/Levels/Level";
 import { useGameContext } from "../../Context/GameContext";
 
 export default function DailyPage() {
     const game = useGameContext();
     return (
         <div>
-            Задача дня <Countdown /> {game.dailyLevelId}
+            <Flex justify="between" mb="6">
+                <Heading size="7">Задача дня</Heading>
+
+                <Heading size="7">
+                    <Countdown />
+                </Heading>
+            </Flex>
+
+            <Level levelId={game.dailyLevelId} onComplete={() => {}} />
         </div>
     );
 }

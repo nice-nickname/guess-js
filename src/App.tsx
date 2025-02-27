@@ -1,18 +1,19 @@
-import Loader from "./Components/Loader/Loader";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import WelcomeUserDialog from "./Components/Dialogs/WelcomeUserDialog/WelcomeUserDialog";
+import Loader from "./Components/Loader/Loader";
 import { useUserContext } from "./Context/UserContext";
 import Layout from "./Pages/Layout";
-import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import GameAuio from "./GameObjects/GameAudio";
 
 export default function App() {
     const user = useUserContext();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
-        navigate('/')
+        navigate("/");
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
     return (
         <div className="App">
@@ -23,6 +24,7 @@ export default function App() {
             <WelcomeUserDialog
                 open={user.isFetched && !user.hasUser}
                 onSave={(username) => {
+                    GameAuio.playAmbient();
                     user.setUsername(username);
                 }}
             />

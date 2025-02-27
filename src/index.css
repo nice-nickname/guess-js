@@ -57,11 +57,44 @@ h6 {
 }
 
 .radix-themes {
-
 }
-
 
 .App {
     width: 100vw;
     height: 100vh;
+}
+
+
+.Animations_shaking {
+    animation: tilt-shaking 0.35s normal forwards;
+}
+
+@keyframes tilt-shaking {
+    0% {
+        transform: rotate(0deg);
+    }
+    12.5% {
+        transform: rotate(5deg);
+    }
+    25% {
+        transform: rotate(0eg);
+    }
+    37.5% {
+        transform: rotate(-5deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    62.5% {
+        transform: rotate(5deg);
+    }
+    75% {
+        transform: rotate(0deg);
+    }
+    87.5% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
 }

@@ -1,12 +1,14 @@
 import { ArrowRightIcon, HomeIcon } from "@radix-ui/react-icons";
 import { Box, Button, Flex, Heading, Text } from "@radix-ui/themes";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router";
 import useLevels from "../../Hooks/useLevels";
 import FormatText from "../FormatText/FormatText";
 import BooleanAnswer from "./AnswerImpl/BooleanAnswer";
 import ChooseAnswer from "./AnswerImpl/ChooseAnswer";
+import InputAnswer from "./AnswerImpl/InputAnswer";
 import { AnswerProps } from "./AnswerImpl/Types";
+import GameAuio from "../../GameObjects/GameAudio";
 
 export type LevelProps = {
     levelId: string;
@@ -27,11 +29,15 @@ export default function Level({ levelId: id, onComplete }: LevelProps) {
     const [isSuccess, setIsSuccess] = useState(false);
     const [isFailure, setFailure] = useState(false);
 
-    const isOver = useMemo(() => isSuccess || isFailure, [isSuccess, isFailure]);
-
+    const isOver = useMemo(
+        () => isSuccess || isFailure,
+        [isSuccess, isFailure]
+    );
 
     useEffect(() => {
         if (attempts > MAX_ATTEMPTS) {
+            GameAuio.playWrong()
+
             setFailure(true);
         }
     }, [attempts]);
@@ -40,10 +46,19 @@ export default function Level({ levelId: id, onComplete }: LevelProps) {
         const answer = level.props.answer;
 
         const answerProps: AnswerProps = {
-            onWrong: () => {
+            onWrong: (target) => {
+                GameAuio.playWrong()
+
                 setAttempts((prev) => prev + 1);
+
+                target?.classList.remove('Animations_shaking')
+                requestAnimationFrame(() => {
+                    target?.classList.add('Animations_shaking')
+                })
             },
             onCorrect: () => {
+                GameAuio.playSuccess()
+
                 setIsSuccess(true);
                 onComplete();
             },
@@ -57,19 +72,15 @@ export default function Level({ levelId: id, onComplete }: LevelProps) {
             return <ChooseAnswer {...answer} {...answerProps} />;
         }
 
-        return <div>Not implemented {answer.type}</div>;
+        if (answer.type === "Input") {
+            return <InputAnswer {...answer} {...answerProps} />;
+        }
+
+        return null
     }, [level.props.answer, onComplete]);
 
     return (
-        <Flex direction="column" gap="3" width="550px">
-            {prevLevel ? (
-                <NavLink to={"/play/" + prevLevel.id}>
-                    #{prevLevel.id} – {prevLevel.title}
-                </NavLink>
-            ) : (
-                <NavLink to={"/"}>Главная</NavLink>
-            )}
-
+        <Flex direction="column" gap="4" width="550px">
             <Flex justify="between">
                 <Heading>
                     #{level.id} – {level.title}

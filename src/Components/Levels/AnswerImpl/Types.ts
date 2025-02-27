@@ -1,5 +1,5 @@
 
 export type AnswerProps = {
     onCorrect: () => void,
-    onWrong: () => void
+    onWrong: (target?: Element) => void
 }

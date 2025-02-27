@@ -1,12 +1,14 @@
 import { Box, Flex } from "@radix-ui/themes";
 import { Route, Routes } from "react-router";
-import SideMenu from "../Components/SideMenu/SideMenu";
+import SideMenu from "../SideMenu/SideMenu";
 import { routes } from "./routes";
 import LevelPage from "./Level/LevelPage";
 
+import "./Layout.css"
+
 export default function Layout() {
     return (
-        <Flex width="100%" height="100%">
+        <Flex width="100%" height="100%" className="Layout">
             <SideMenu />
 
             <Box p="4" pl="8">

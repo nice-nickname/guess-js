@@ -1,0 +1,6 @@
+.Layout {
+    background-color: #111113;
+    opacity: 1;
+    background-image: radial-gradient(#232323 1.5px, #111113 1.5px);
+    background-size: 25px 25px;
+}

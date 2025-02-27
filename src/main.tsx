@@ -10,7 +10,7 @@ import "@radix-ui/themes/styles.css";
 import "./index.css";
 import { GameContextProvider } from "./Context/GameContext.tsx";
 
-GameAudio.play();
+GameAudio.playAmbient();
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>

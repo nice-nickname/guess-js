@@ -13,7 +13,7 @@ export default function IndexPage() {
             <Flex direction="column" gap="3">
                 {levels.levels.map((level) => (
                     <NavLink key={level.id} to={"/play/" + level.id}>
-                        <Box asChild px="5">
+                        <Box asChild>
                             <Button
                                 variant="ghost"
                                 size="3"

@@ -3,10 +3,10 @@ import {
 } from "@radix-ui/react-icons";
 import { Box, Button, Flex, Link, Text } from "@radix-ui/themes";
 import { NavLink } from "react-router";
-import { useUserContext } from "../../Context/UserContext";
-import { routes } from "../../Pages/routes";
-import TelegramLogoIcon from "../Icons/TelegramLogoIcon";
-import UserCard from "../User/UserCard";
+import { useUserContext } from "../Context/UserContext";
+import { routes } from "../Pages/routes";
+import TelegramLogoIcon from "../Components/Icons/TelegramLogoIcon";
+import UserCard from "../Components/User/UserCard";
 
 import "./SideMenu.css";
 
