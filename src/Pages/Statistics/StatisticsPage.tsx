@@ -9,7 +9,7 @@ export default function StatisticsPage() {
     const accomplishedLevels = useMemo(() => {
         const index = levels.levels.findIndex((lvl) => lvl.id === user.level);
 
-        return index > 0 ? index : 0;
+        return index >= 0 ? index + 1 : 0;
     }, [user.level]);
 
     return (
