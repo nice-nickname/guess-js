@@ -1,5 +1,7 @@
+
 class GameAudio {
-    static silentSound = "/1-second-of-silence.mp3";
+
+    static ambientSoundCoef = 0.5
 
     private readonly ambientAudio: HTMLAudioElement;
     private readonly hitAudio: HTMLAudioElement;
@@ -23,17 +25,21 @@ class GameAudio {
     constructor() {
         const basePath = document.location.href + "/sound";
 
+        const silenceSound = basePath + '/1-second-of-silence.mp3'
+
         this.ambientAudio = new Audio(basePath + "/ambient.mp3");
         this.hitAudio = new Audio(basePath + "/hit.mp3");
 
-        this.successAnswerAudio = new Audio(basePath + GameAudio.silentSound);
-        this.wrongTryAudio = new Audio(basePath + GameAudio.silentSound);
-        this.wrongAnswerAudio = new Audio(basePath + GameAudio.silentSound);
+        this.successAnswerAudio = new Audio(silenceSound);
+        this.wrongTryAudio = new Audio(silenceSound);
+        this.wrongAnswerAudio = new Audio(silenceSound);
 
         this._volume = 0.5
 
         this.updateVolume()
 
+        // Audio can be played only by user's interaction with page
+        // So we playing blank sound on each object before settings actual audio
         document.addEventListener(
             "click",
             () => {
@@ -61,8 +67,8 @@ class GameAudio {
         });
     }
 
-    isAmbientPaused() {
-        return this.ambientAudio.paused
+    isAmbientPlayed() {
+        return !this.ambientAudio.paused
     }
 
     playAmbient() {
@@ -82,15 +88,24 @@ class GameAudio {
     }
 
     playWrongTry() {
-        this.wrongTryAudio.play();
+        this.playAsync(this.wrongTryAudio)
     }
 
     playWrong() {
-        this.wrongTryAudio.play();
+        this.wrongAnswerAudio.play();
+    }
+
+    private async playAsync(audio: HTMLAudioElement) {
+        const element = !audio.paused
+            ? audio
+            : audio.cloneNode() as HTMLAudioElement
+
+        element.play()
     }
 
     private updateVolume() {
-        this.ambientAudio.volume = this._volume;
+        this.ambientAudio.volume = this._volume * GameAudio.ambientSoundCoef;
+
         this.hitAudio.volume = this._volume;
         this.successAnswerAudio.volume = this._volume;
         this.wrongTryAudio.volume = this._volume;

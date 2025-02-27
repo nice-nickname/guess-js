@@ -36,9 +36,10 @@ export default function Level({ levelId: id, onComplete }: LevelProps) {
 
     useEffect(() => {
         if (attempts > MAX_ATTEMPTS) {
-            GameAuio.playWrong();
-
             setFailure(true);
+            GameAuio.playWrong();
+        } else if (attempts > 1) {
+            GameAuio.playWrongTry();
         }
     }, [attempts]);
 
@@ -47,8 +48,6 @@ export default function Level({ levelId: id, onComplete }: LevelProps) {
 
         const answerProps: AnswerProps = {
             onWrong: (target) => {
-                GameAuio.playWrong();
-
                 setAttempts((prev) => prev + 1);
 
                 target?.classList.remove("Animations_shaking");

@@ -22,7 +22,7 @@ export default function SettingsDialog({ children }: PropsWithChildren) {
         event.preventDefault();
 
         game.setVolume(GameAuio.volume);
-        game.setPlayMusic(!GameAuio.isAmbientPaused());
+        game.setPlayMusic(!GameAuio.isAmbientPlayed());
     };
 
     return (

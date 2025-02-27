@@ -5,5 +5,5 @@ export default defineConfig({
     plugins: [
         react()
     ],
-    base: "https://nice-nickname.github.io/js-learner/"
+    base: "/js-learner"
 })
