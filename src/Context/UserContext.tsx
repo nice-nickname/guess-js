@@ -25,7 +25,7 @@ export const useUserContext = () => React.useContext(Context);
 export const UserContextProvider = (props: PropsWithChildren) => {
     const [username, setUsername] = useState("")
     const [isFetched, setIsFetched] = useState(false)
-    const [level, setLevel] = useState("1488")
+    const [level, setLevel] = useState("0")
 
     useEffect(() => {
         setTimeout(() => setIsFetched(true), 1500);

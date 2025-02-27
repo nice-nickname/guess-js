@@ -1,6 +1,6 @@
 import { ArrowRightIcon, HomeIcon } from "@radix-ui/react-icons";
 import { Box, Button, Flex, Heading, Text } from "@radix-ui/themes";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router";
 import useLevels from "../../Hooks/useLevels";
 import FormatText from "../FormatText/FormatText";
@@ -18,7 +18,7 @@ export type LevelProps = {
 const MAX_ATTEMPTS = 3;
 
 export default function Level({ levelId: id, onComplete }: LevelProps) {
-    const [level, prevLevel, nextLevel] = useLevels(id);
+    const [level, , nextLevel] = useLevels(id);
 
     const [attempts, setAttempts] = useState(1);
 
@@ -36,7 +36,7 @@ export default function Level({ levelId: id, onComplete }: LevelProps) {
 
     useEffect(() => {
         if (attempts > MAX_ATTEMPTS) {
-            GameAuio.playWrong()
+            GameAuio.playWrong();
 
             setFailure(true);
         }
@@ -47,17 +47,17 @@ export default function Level({ levelId: id, onComplete }: LevelProps) {
 
         const answerProps: AnswerProps = {
             onWrong: (target) => {
-                GameAuio.playWrong()
+                GameAuio.playWrong();
 
                 setAttempts((prev) => prev + 1);
 
-                target?.classList.remove('Animations_shaking')
+                target?.classList.remove("Animations_shaking");
                 requestAnimationFrame(() => {
-                    target?.classList.add('Animations_shaking')
-                })
+                    target?.classList.add("Animations_shaking");
+                });
             },
             onCorrect: () => {
-                GameAuio.playSuccess()
+                GameAuio.playSuccess();
 
                 setIsSuccess(true);
                 onComplete();
@@ -76,7 +76,7 @@ export default function Level({ levelId: id, onComplete }: LevelProps) {
             return <InputAnswer {...answer} {...answerProps} />;
         }
 
-        return null
+        return null;
     }, [level.props.answer, onComplete]);
 
     return (
@@ -87,9 +87,11 @@ export default function Level({ levelId: id, onComplete }: LevelProps) {
                 </Heading>
 
                 {!isOver ? (
-                    <Text color="gray">
-                        Попытка {attempts} / {MAX_ATTEMPTS}
-                    </Text>
+                    <Box flexShrink="0" asChild>
+                        <Text color="gray">
+                            Попытка {attempts} / {MAX_ATTEMPTS}
+                        </Text>
+                    </Box>
                 ) : null}
             </Flex>
 

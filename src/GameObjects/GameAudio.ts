@@ -21,7 +21,7 @@ class GameAudio {
     }
 
     constructor() {
-        const basePath = document.location.origin + "/sound";
+        const basePath = document.location.href + "/sound";
 
         this.ambientAudio = new Audio(basePath + "/ambient.mp3");
         this.hitAudio = new Audio(basePath + "/hit.mp3");
