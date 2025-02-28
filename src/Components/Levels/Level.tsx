@@ -9,6 +9,7 @@ import {
     Callout,
     Flex,
     Heading,
+    HoverCard,
     Strong,
     Text,
 } from "@radix-ui/themes";
@@ -21,6 +22,7 @@ import ChooseAnswer from "./AnswerImpl/ChooseAnswer";
 import InputAnswer from "./AnswerImpl/InputAnswer";
 import { AnswerProps } from "./AnswerImpl/Types";
 import GameAuio from "../../GameObjects/GameAudio";
+import React from "react";
 
 export type LevelProps = {
     levelId: string;
@@ -28,9 +30,9 @@ export type LevelProps = {
     onCorrect: () => void;
 };
 
-const MAX_ATTEMPTS = 3;
+const MAX_ATTEMPTS = 2;
 
-export default function Level({ levelId: id, onComplete, onCorrect }: LevelProps) {
+function Level({ levelId: id, onComplete, onCorrect }: LevelProps) {
     const [level, , nextLevel] = useLevels(id);
 
     const [attempts, setAttempts] = useState(1);
@@ -46,6 +48,12 @@ export default function Level({ levelId: id, onComplete, onCorrect }: LevelProps
         () => isSuccess || isFailure,
         [isSuccess, isFailure]
     );
+
+    useEffect(() => {
+        if (isOver && onComplete) {
+            onComplete();
+        }
+    }, [isOver, onComplete]);
 
     useEffect(() => {
         if (attempts > MAX_ATTEMPTS) {
@@ -69,8 +77,6 @@ export default function Level({ levelId: id, onComplete, onCorrect }: LevelProps
                         target?.classList.add("Animations_shaking");
                     });
                 });
-
-                onComplete?.call(null);
             },
             onCorrect: () => {
                 GameAuio.playSuccess();
@@ -78,8 +84,6 @@ export default function Level({ levelId: id, onComplete, onCorrect }: LevelProps
                 setIsSuccess(true);
 
                 onCorrect();
-
-                onComplete?.call(null);
             },
         };
 
@@ -96,7 +100,7 @@ export default function Level({ levelId: id, onComplete, onCorrect }: LevelProps
         }
 
         return null;
-    }, [level.props.answer, onComplete]);
+    }, [level.props.answer, onCorrect]);
 
     return (
         <Flex direction="column" gap="4" width="550px">
@@ -131,14 +135,28 @@ export default function Level({ levelId: id, onComplete, onCorrect }: LevelProps
                 isSuccess ? (
                     <Callout.Root color="green" variant="outline">
                         <Callout.Icon>
-                            <InfoCircledIcon />
+                            <HoverCard.Root>
+                                <HoverCard.Trigger>
+                                    <InfoCircledIcon />
+                                </HoverCard.Trigger>
+                                <HoverCard.Content maxWidth="300px">
+                                    <Text>{level.help}</Text>
+                                </HoverCard.Content>
+                            </HoverCard.Root>
                         </Callout.Icon>
                         <Callout.Text>Успех!</Callout.Text>
                     </Callout.Root>
                 ) : (
                     <Callout.Root color="red" variant="outline">
                         <Callout.Icon>
-                            <InfoCircledIcon />
+                        <HoverCard.Root>
+                                <HoverCard.Trigger>
+                                    <InfoCircledIcon />
+                                </HoverCard.Trigger>
+                                <HoverCard.Content maxWidth="300px">
+                                    <Text>{level.help}</Text>
+                                </HoverCard.Content>
+                            </HoverCard.Root>
                         </Callout.Icon>
                         <Callout.Text>
                             Неудача! Правильный ответ:{" "}
@@ -172,3 +190,5 @@ export default function Level({ levelId: id, onComplete, onCorrect }: LevelProps
         </Flex>
     );
 }
+
+export default React.memo(Level, (prev, next) => prev.levelId === next.levelId);

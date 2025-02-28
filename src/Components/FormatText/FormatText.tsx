@@ -10,7 +10,7 @@ function FormatText({ children: text }: FormatTextProps) {
 
     const parts: React.ReactNode[] = [];
 
-    const lines = text.split('\n')
+    const lines = text.trim().split('\n')
     lines.forEach((lineText, i) => {
         let lastIndex = 0;
         let match;

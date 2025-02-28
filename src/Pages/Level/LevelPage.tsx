@@ -17,7 +17,7 @@ export default function LevelPage() {
                 key={levelId}
                 levelId={levelId}
                 onComplete={() => {
-                    if (user.level < levelId) {
+                    if ((+user.level) < (+levelId)) {
                         user.setLevel(levelId)
                     }
                 }}

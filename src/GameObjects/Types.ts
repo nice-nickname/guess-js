@@ -4,6 +4,7 @@ export type LevelDef = {
     title: string,
     category: string,
     difficulty: string,
+    help?: string,
 
     props: {
         question: string,
