@@ -21,6 +21,9 @@ export default function LevelPage() {
                         user.setLevel(levelId)
                     }
                 }}
+                onCorrect={() => {
+                    user.setCompleted(levelId)
+                }}
             />
         </Box>
     );

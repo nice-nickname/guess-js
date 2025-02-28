@@ -26,9 +26,7 @@ export const GameContextProvider = (props: PropsWithChildren) => {
     });
 
     const [volume, setVolume] = useState(() => GameAuio.volume);
-    const [playMusic, setPlayMusic] = useState(
-        () => !GameAuio.isAmbientPlayed()
-    );
+    const [playMusic, setPlayMusic] = useState(() => GameAuio.isAmbientPlayed());
 
     const gameContext = useMemo<GameContext>(
         () => ({

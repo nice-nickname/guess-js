@@ -23,7 +23,7 @@ class GameAudio {
     }
 
     constructor() {
-        const basePath = document.location.href + "/sound";
+        const basePath = document.location.origin + import.meta.env.BASE_URL + "/sound";
 
         const silenceSound = basePath + '/1-second-of-silence.mp3'
 

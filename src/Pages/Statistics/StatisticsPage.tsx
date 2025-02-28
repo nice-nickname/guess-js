@@ -26,11 +26,30 @@ export default function StatisticsPage() {
                         </Badge>
                     </DataList.Value>
                 </DataList.Item>
+
                 <DataList.Item align="center">
                     <DataList.Label>Пройдено уровней</DataList.Label>
                     <DataList.Value>
                         <Badge variant="soft" radius="full">
                             {accomplishedLevels} / {levels.levels.length}
+                        </Badge>
+                    </DataList.Value>
+                </DataList.Item>
+
+                <DataList.Item align="center">
+                    <DataList.Label>Пройдено успешно</DataList.Label>
+                    <DataList.Value>
+                        <Badge variant="soft" radius="full">
+                            {user.completed} / {levels.levels.length}
+                        </Badge>
+                    </DataList.Value>
+                </DataList.Item>
+
+                <DataList.Item align="center">
+                    <DataList.Label>Задача дня</DataList.Label>
+                    <DataList.Value>
+                        <Badge variant="soft" radius="full">
+                            {user.dailyCompleted ? "Пройдена" : "Не пройдена"}
                         </Badge>
                     </DataList.Value>
                 </DataList.Item>

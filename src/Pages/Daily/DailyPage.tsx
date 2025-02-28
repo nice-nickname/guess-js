@@ -1,4 +1,4 @@
-import { Flex, Heading } from "@radix-ui/themes";
+import { Flex, Heading, Text } from "@radix-ui/themes";
 import Countdown from "../../Components/Countdown/Countdown";
 import Level from "../../Components/Levels/Level";
 import { useGameContext } from "../../Context/GameContext";
@@ -18,10 +18,17 @@ export default function DailyPage() {
                 </Heading>
             </Flex>
 
-            <Level
-                levelId={game.dailyLevelId}
-                onComplete={() => user.setDailyCompleted(true)}
-            />
+            {!user.dailyCompleted ? (
+                <Level
+                    levelId={game.dailyLevelId}
+                    onComplete={() => { }}
+                    onCorrect={() => user.setDailyCompleted(true)}
+                />
+            ) : (
+                <Text>
+                    Задача дня пройдена! Возвращайтесь позже.
+                </Text>
+            )}
         </div>
     );
 }

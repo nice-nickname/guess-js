@@ -7,7 +7,8 @@ export type LevelDef = {
 
     props: {
         question: string,
-        answer: AnswerDef
+        answer: AnswerDef,
+        help?: string
     }
 
 }

@@ -1,5 +1,17 @@
-import { ArrowRightIcon, HomeIcon } from "@radix-ui/react-icons";
-import { Box, Button, Flex, Heading, Text } from "@radix-ui/themes";
+import {
+    ArrowRightIcon,
+    HomeIcon,
+    InfoCircledIcon,
+} from "@radix-ui/react-icons";
+import {
+    Box,
+    Button,
+    Callout,
+    Flex,
+    Heading,
+    Strong,
+    Text,
+} from "@radix-ui/themes";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router";
 import useLevels from "../../Hooks/useLevels";
@@ -12,12 +24,13 @@ import GameAuio from "../../GameObjects/GameAudio";
 
 export type LevelProps = {
     levelId: string;
-    onComplete: () => void;
+    onComplete?: () => void;
+    onCorrect: () => void;
 };
 
 const MAX_ATTEMPTS = 3;
 
-export default function Level({ levelId: id, onComplete }: LevelProps) {
+export default function Level({ levelId: id, onComplete, onCorrect }: LevelProps) {
     const [level, , nextLevel] = useLevels(id);
 
     const [attempts, setAttempts] = useState(1);
@@ -50,16 +63,23 @@ export default function Level({ levelId: id, onComplete }: LevelProps) {
             onWrong: (target) => {
                 setAttempts((prev) => prev + 1);
 
-                target?.classList.remove("Animations_shaking");
                 requestAnimationFrame(() => {
-                    target?.classList.add("Animations_shaking");
+                    target?.classList.remove("Animations_shaking");
+                    requestAnimationFrame(() => {
+                        target?.classList.add("Animations_shaking");
+                    });
                 });
+
+                onComplete?.call(null);
             },
             onCorrect: () => {
                 GameAuio.playSuccess();
 
                 setIsSuccess(true);
-                onComplete();
+
+                onCorrect();
+
+                onComplete?.call(null);
             },
         };
 
@@ -106,6 +126,29 @@ export default function Level({ levelId: id, onComplete }: LevelProps) {
                     <Answer_ />
                 </Box>
             </div>
+
+            {isOver ? (
+                isSuccess ? (
+                    <Callout.Root color="green" variant="outline">
+                        <Callout.Icon>
+                            <InfoCircledIcon />
+                        </Callout.Icon>
+                        <Callout.Text>Успех!</Callout.Text>
+                    </Callout.Root>
+                ) : (
+                    <Callout.Root color="red" variant="outline">
+                        <Callout.Icon>
+                            <InfoCircledIcon />
+                        </Callout.Icon>
+                        <Callout.Text>
+                            Неудача! Правильный ответ:{" "}
+                            <Strong>
+                                {level.props.answer.expected.toString()}
+                            </Strong>
+                        </Callout.Text>
+                    </Callout.Root>
+                )
+            ) : null}
 
             {isOver ? (
                 <Flex mt="5" justify="end">
