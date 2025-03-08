@@ -11,7 +11,7 @@ import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
-        <BrowserRouter basename="/js-learner">
+        <BrowserRouter basename="/guess-js">
             <Theme appearance="dark" radius="large">
                 <GameContextProvider>
                     <UserContextProvider>

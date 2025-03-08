@@ -5,5 +5,5 @@ export default defineConfig({
     plugins: [
         react()
     ],
-    base: "/js-learner"
+    base: "/guess-js"
 })
