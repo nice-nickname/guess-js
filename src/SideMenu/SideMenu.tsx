@@ -35,7 +35,7 @@ export default function SideMenu() {
             </Text>
 
             <Flex gap="3">
-                <Link href="https://github.com/nice-nickname">
+                <Link href="https://github.com/nice-nickname/guess-js">
                     <GitHubLogoIcon width={24} height={24} color="white" />
                 </Link>
                 <Link href="https://t.me/myachik_red">
