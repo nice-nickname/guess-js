@@ -4,10 +4,10 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import App from "./App.tsx";
 import { UserContextProvider } from "./Context/UserContext.tsx";
+import { GameContextProvider } from "./Context/GameContext.tsx";
 
 import "@radix-ui/themes/styles.css";
 import "./index.css";
-import { GameContextProvider } from "./Context/GameContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>

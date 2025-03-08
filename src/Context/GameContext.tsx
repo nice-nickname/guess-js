@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, useMemo, useState } from "react";
-import { levels } from "../GameObjects/GameLevels";
 import GameAuio from "../GameObjects/GameAudio";
+import { levels } from "../GameObjects/GameLevels";
 
 export type GameState = {
-    dailyLevelId: string;
+    dailyLevelId: number;
     volume: number;
     playMusic: boolean;
 };
@@ -26,7 +26,7 @@ export const GameContextProvider = (props: PropsWithChildren) => {
     });
 
     const [volume, setVolume] = useState(() => GameAuio.volume);
-    const [playMusic, setPlayMusic] = useState(() => GameAuio.isAmbientPlayed());
+    const [playMusic, setPlayMusic] = useState(() => true);
 
     const gameContext = useMemo<GameContext>(
         () => ({

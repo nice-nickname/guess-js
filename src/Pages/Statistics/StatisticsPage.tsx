@@ -12,47 +12,58 @@ export default function StatisticsPage() {
         return index >= 0 ? index + 1 : 0;
     }, [user.level]);
 
+    const items = [
+        {
+            label: "Пользователь",
+            content: (
+                <Badge color="green" variant="soft" radius="full">
+                    {user.username}
+                </Badge>
+            ),
+        },
+        {
+            label: "Пройдено уровней",
+            content: (
+                <Badge variant="soft" radius="full">
+                    {accomplishedLevels} / {levels.levels.length}
+                </Badge>
+            ),
+        },
+        {
+            label: "Пройдено успешно",
+            content: (
+                <Badge variant="soft" radius="full">
+                    {user.completed} / {levels.levels.length}
+                </Badge>
+            ),
+        },
+        {
+            label: "Задача дня",
+            content: (
+                <Badge
+                    variant="soft"
+                    radius="full"
+                    color={user.dailyCompleted ? "green" : "indigo"}
+                >
+                    {user.dailyCompleted ? "Пройдена" : "Не пройдена"}
+                </Badge>
+            ),
+        },
+    ];
+
     return (
         <>
             <Heading mb="5">Статистика</Heading>
+
             <DataList.Root>
-                <DataList.Item align="center">
-                    <DataList.Label minWidth="160px">
-                        Пользователь
-                    </DataList.Label>
-                    <DataList.Value>
-                        <Badge color="jade" variant="soft" radius="full">
-                            {user.username}
-                        </Badge>
-                    </DataList.Value>
-                </DataList.Item>
-
-                <DataList.Item align="center">
-                    <DataList.Label>Пройдено уровней</DataList.Label>
-                    <DataList.Value>
-                        <Badge variant="soft" radius="full">
-                            {accomplishedLevels} / {levels.levels.length}
-                        </Badge>
-                    </DataList.Value>
-                </DataList.Item>
-
-                <DataList.Item align="center">
-                    <DataList.Label>Пройдено успешно</DataList.Label>
-                    <DataList.Value>
-                        <Badge variant="soft" radius="full">
-                            {user.completed} / {levels.levels.length}
-                        </Badge>
-                    </DataList.Value>
-                </DataList.Item>
-
-                <DataList.Item align="center">
-                    <DataList.Label>Задача дня</DataList.Label>
-                    <DataList.Value>
-                        <Badge variant="soft" radius="full">
-                            {user.dailyCompleted ? "Пройдена" : "Не пройдена"}
-                        </Badge>
-                    </DataList.Value>
-                </DataList.Item>
+                {items.map((item) => (
+                    <DataList.Item align="center">
+                        <DataList.Label minWidth="160px">
+                            {item.label}
+                        </DataList.Label>
+                        <DataList.Value>{item.content}</DataList.Value>
+                    </DataList.Item>
+                ))}
             </DataList.Root>
         </>
     );

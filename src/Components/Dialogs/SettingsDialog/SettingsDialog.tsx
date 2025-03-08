@@ -1,7 +1,7 @@
 import { Button, Dialog, Flex, Slider, Switch, Text } from "@radix-ui/themes";
-import GameAuio from "../../../GameObjects/GameAudio";
 import React, { PropsWithChildren } from "react";
 import { useGameContext } from "../../../Context/GameContext";
+import GameAuio from "../../../GameObjects/GameAudio";
 
 export default function SettingsDialog({ children }: PropsWithChildren) {
     const game = useGameContext();

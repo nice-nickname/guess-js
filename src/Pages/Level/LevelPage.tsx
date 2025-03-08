@@ -1,7 +1,7 @@
+import { Box } from "@radix-ui/themes";
 import { useParams } from "react-router";
 import Level from "../../Components/Levels/Level";
 import { useUserContext } from "../../Context/UserContext";
-import { Box } from "@radix-ui/themes";
 
 export default function LevelPage() {
     const { levelId } = useParams();
@@ -15,14 +15,14 @@ export default function LevelPage() {
         <Box pl="8">
             <Level
                 key={levelId}
-                levelId={levelId}
+                levelId={+levelId}
                 onComplete={() => {
-                    if ((+user.level) < (+levelId)) {
-                        user.setLevel(levelId)
+                    if (user.level < +levelId) {
+                        user.setLevel(+levelId);
                     }
                 }}
                 onCorrect={() => {
-                    user.setCompleted(levelId)
+                    user.setCompleted(+levelId);
                 }}
             />
         </Box>

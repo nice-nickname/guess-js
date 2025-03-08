@@ -1,6 +1,6 @@
 import { Button, Flex, TextField } from "@radix-ui/themes";
-import { AnswerProps } from "./Types";
 import React, { useRef } from "react";
+import { AnswerProps } from "./Types";
 
 export type InputAnswerProps = {
     expected: string;
@@ -9,17 +9,17 @@ export type InputAnswerProps = {
 export default function InputAnswer(props: InputAnswerProps) {
     const { expected, onCorrect, onWrong } = props;
 
-    const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null!);
 
     const handleSubmit = (ev: React.FormEvent) => {
         ev.preventDefault();
 
-        const value = inputRef.current?.value;
+        const value = inputRef.current.value;
 
         if (value && value === expected) {
             onCorrect();
         } else {
-            onWrong(inputRef.current!);
+            onWrong(inputRef.current);
         }
     };
 

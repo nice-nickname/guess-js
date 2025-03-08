@@ -18,7 +18,7 @@ export default function IndexPage() {
                                 variant="ghost"
                                 size="3"
                                 radius="full"
-                                disabled={(+user.level + 1) < (+level.id)}
+                                disabled={user.level + 1 < level.id}
                             >
                                 {level.id} – {level.title}
                             </Button>

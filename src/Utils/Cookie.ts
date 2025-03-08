@@ -11,7 +11,7 @@ export default {
             .find(row => row.startsWith(name + '='))
             ?.split("=")[1]
 
-            return cookieValue ?? null
+        return cookieValue ?? null
     },
 
     set(name: string, value: string) {

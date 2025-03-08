@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { levels } from "../GameObjects/GameLevels";
 
-export default function useLevels(id: string) {
+export default function useLevels(id: number) {
     const level = useMemo(() => {
         return levels.levels.find((lvl) => lvl.id === id)!;
     }, [id]);

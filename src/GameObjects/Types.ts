@@ -1,6 +1,6 @@
 
 export type LevelDef = {
-    id: string,
+    id: number,
     title: string,
     category: string,
     difficulty: string,

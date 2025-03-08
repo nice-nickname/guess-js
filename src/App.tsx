@@ -3,8 +3,8 @@ import { useNavigate } from "react-router";
 import WelcomeUserDialog from "./Components/Dialogs/WelcomeUserDialog/WelcomeUserDialog";
 import Loader from "./Components/Loader/Loader";
 import { useUserContext } from "./Context/UserContext";
-import Layout from "./Pages/Layout";
 import GameAuio from "./GameObjects/GameAudio";
+import Layout from "./Pages/Layout";
 
 export default function App() {
     const user = useUserContext();

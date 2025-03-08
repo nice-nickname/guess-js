@@ -22,5 +22,5 @@ export const routes = [
         title: "Статистика",
         icon: <RocketIcon />,
         page: <StatisticsPage />,
-    }
+    },
 ];

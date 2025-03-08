@@ -1,9 +1,15 @@
-import React, { PropsWithChildren, useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+    PropsWithChildren,
+    useCallback,
+    useEffect,
+    useMemo,
+    useState,
+} from "react";
 
 export type UserState = {
     isFetched: boolean;
     username: string;
-    level: string;
+    level: number;
     dailyCompleted: boolean;
 };
 
@@ -12,9 +18,9 @@ export type UserContext = UserState & {
     completed: number;
 
     setUsername: (username: string) => void;
-    setLevel: (level: string) => void;
+    setLevel: (level: number) => void;
     setDailyCompleted: (value: boolean) => void;
-    setCompleted: (levelId: string) => void
+    setCompleted: (levelId: number) => void;
 };
 
 // @ts-expect-error mute
@@ -25,9 +31,9 @@ export const useUserContext = () => React.useContext(Context);
 export const UserContextProvider = (props: PropsWithChildren) => {
     const [username, setUsername] = useState("");
     const [isFetched, setIsFetched] = useState(false);
-    const [level, setLevel] = useState("0");
+    const [level, setLevel] = useState(0);
     const [dailyCompleted, setDailyCompleted] = useState(false);
-    const [completedLvls, setCompletedLvls] = useState<string[]>([])
+    const [completedLvls, setCompletedLvls] = useState<number[]>([]);
 
     useEffect(() => {
         setTimeout(() => setIsFetched(true), 1500);
@@ -38,14 +44,17 @@ export const UserContextProvider = (props: PropsWithChildren) => {
     }, [username]);
 
     const completed = useMemo(() => {
-        return completedLvls.length
-    }, [completedLvls])
+        return completedLvls.length;
+    }, [completedLvls]);
 
-    const setCompleted = useCallback((id: string) => {
-        if (completedLvls.indexOf(id) === -1) {
-            setCompletedLvls([...completedLvls, id])
-        }
-    }, [completedLvls])
+    const setCompleted = useCallback(
+        (id: number) => {
+            if (completedLvls.indexOf(id) === -1) {
+                setCompletedLvls([...completedLvls, id]);
+            }
+        },
+        [completedLvls]
+    );
 
     const user = useMemo<UserContext>(() => {
         return {
@@ -63,13 +72,17 @@ export const UserContextProvider = (props: PropsWithChildren) => {
             setUsername,
             setLevel,
             setDailyCompleted,
-            setCompleted
+            setCompleted,
         };
-    }, [username, isFetched, level, dailyCompleted, hasUser, completed, setCompleted]);
+    }, [
+        username,
+        isFetched,
+        level,
+        dailyCompleted,
+        hasUser,
+        completed,
+        setCompleted,
+    ]);
 
-    return (
-        <Context.Provider value={user}>
-            {props.children}
-        </Context.Provider>
-    );
+    return <Context.Provider value={user}>{props.children}</Context.Provider>;
 };

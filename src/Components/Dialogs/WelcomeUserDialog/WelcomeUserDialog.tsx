@@ -10,8 +10,8 @@ import {
     TextField,
 } from "@radix-ui/themes";
 import { useState } from "react";
-import UserCard from "../../User/UserCard";
 import useDebounce from "../../../Hooks/useDebounse";
+import UserCard from "../../User/UserCard";
 
 export type UserEditDialogProps = {
     onSave: (username: string) => void;
@@ -50,17 +50,27 @@ export default function WelcomeUserDialog({ onSave, open }: UserEditDialogProps)
                         <Box>
                             <Flex direction="column" gap="3">
                                 <label>
-                                    <Text as="div" size="2" mb="1" weight="bold">
+                                    <Text
+                                        as="div"
+                                        size="2"
+                                        mb="1"
+                                        weight="bold"
+                                    >
                                         Представься:
                                     </Text>
                                     <TextField.Root
                                         placeholder="Никнейм"
-                                        onChange={(ev) => setUsername(ev.target.value)}
+                                        onChange={(ev) =>
+                                            setUsername(ev.target.value)
+                                        }
                                     />
                                 </label>
 
                                 <Box mt="3">
-                                    <UserCard username={debouncedUsername} placeholder="Никнейм" />
+                                    <UserCard
+                                        username={debouncedUsername}
+                                        placeholder="Никнейм"
+                                    />
                                 </Box>
                             </Flex>
                         </Box>

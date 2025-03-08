@@ -1,10 +1,10 @@
 import { Box, Flex } from "@radix-ui/themes";
 import { Route, Routes } from "react-router";
 import SideMenu from "../SideMenu/SideMenu";
-import { routes } from "./routes";
 import LevelPage from "./Level/LevelPage";
+import { routes } from "./routes";
 
-import "./Layout.css"
+import "./Layout.css";
 
 export default function Layout() {
     return (
@@ -25,7 +25,8 @@ export default function Layout() {
                     <Route
                         path="/play/:levelId"
                         element={<LevelPage />}
-                        key={'/play/:levelId'} />
+                        key={"/play/:levelId"}
+                    />
                 </Routes>
             </Box>
         </Flex>

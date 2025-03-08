@@ -25,9 +25,7 @@ export default function DailyPage() {
                     onCorrect={() => user.setDailyCompleted(true)}
                 />
             ) : (
-                <Text>
-                    Задача дня пройдена! Возвращайтесь позже.
-                </Text>
+                <Text>Задача дня пройдена! Возвращайтесь позже.</Text>
             )}
         </div>
     );

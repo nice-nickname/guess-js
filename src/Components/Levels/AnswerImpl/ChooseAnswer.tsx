@@ -1,6 +1,6 @@
 import { Box, Button, Flex } from "@radix-ui/themes";
-import { AnswerProps } from "./Types";
 import React from "react";
+import { AnswerProps } from "./Types";
 
 export type ChooseAnswerProps = {
     expected: string;

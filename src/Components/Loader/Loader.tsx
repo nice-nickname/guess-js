@@ -1,8 +1,8 @@
 import "./Loader.css";
 
 export type LoaderProps = {
-    isFinished: boolean
-}
+    isFinished: boolean;
+};
 
 export default function Loader({ isFinished }: LoaderProps) {
     return (
