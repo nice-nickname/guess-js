@@ -2,7 +2,7 @@ import { ArrowRightIcon, HomeIcon } from "@radix-ui/react-icons";
 import { Box, Button, Flex, Heading, Text } from "@radix-ui/themes";
 import React, { useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router";
-import Globals from "../../Const/Globals";
+import Globals from "../../GameObjects/Globals";
 import GameAuio from "../../GameObjects/GameAudio";
 import useLevels from "../../Hooks/useLevels";
 import FormatText from "../FormatText/FormatText";
